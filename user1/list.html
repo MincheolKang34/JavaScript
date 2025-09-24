@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user1::list</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            const table = document.getElementsByTagName('table')[0];
+            
+            // 데이터 요청
+            fetch('http://localhost:8080/ch08/user1')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+
+                for (const user of data) {
+                    const tr = `<tr>
+                                    <td>${user.userid}</td>
+                                    <td>${user.name}</td>
+                                    <td>${user.birth}</td>
+                                    <td>${user.age}</td>
+                                    <td>
+                                        <a href='modify' class='modify'>수정</a>
+                                        <a href='delete' class='delete'>삭제</a>
+                                    </td>
+                                </tr>`;
+
+                    table.insertAdjacentHTML('beforeEnd', tr);
+                }
+            });
+        }); // DOMContentLoaded 끝
+    </script>
+</head>
+<body>
+    <h3>User1 목록</h3>
+    
+    <a href="/user1/register.html">등록</a>
+    <table border="1">
+        <tr>
+            <td>아이디</td>
+            <td>이름</td>
+            <td>생년월일</td>
+            <td>나이</td>
+            <td>관리</td>
+        </tr>
+    </table>
+</body>
+</html>
