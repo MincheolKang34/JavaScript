@@ -23,7 +23,14 @@
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(jsonData)
                 })
-                .then(response => response.json())
+                .then(response => {
+                    // 로그인 검사
+                    if (response.status === 403) {
+                        alert('존재하지 않는 아이디거나 비밀번호가 일치하지 않습니다.');
+                    } else if (response.ok) {
+                        return response.json();
+                    }
+                })
                 .then(data => {
                     console.log(data);
 
